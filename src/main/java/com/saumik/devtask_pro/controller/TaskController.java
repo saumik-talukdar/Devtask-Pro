@@ -40,13 +40,5 @@ public class TaskController {
         taskService.deleteTask(id);
     }
 
-    @GetMapping("/dummy")
-    public Task getDummyTask() {
-        return Task.builder()
-                .id(1L)
-                .title("Dummy Task")
-                .description("This is just a dummy task")
-                .status("IN_PROGRESS")
-                .build();
-    }
+
 }

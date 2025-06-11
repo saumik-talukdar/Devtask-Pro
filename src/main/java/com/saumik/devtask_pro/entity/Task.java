@@ -1,16 +1,15 @@
 package com.saumik.devtask_pro.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.saumik.devtask_pro.enums.TaskPriority;
+import com.saumik.devtask_pro.enums.TaskStatus;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,7 +19,13 @@ public class Task {
     private Long id;
     private String title;
     private String description;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+    private LocalDate dueDate;
+
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
 
 
 }
