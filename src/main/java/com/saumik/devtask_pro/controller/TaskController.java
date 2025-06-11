@@ -1,7 +1,9 @@
 package com.saumik.devtask_pro.controller;
 
-import com.saumik.devtask_pro.entity.Task;
+import com.saumik.devtask_pro.dto.request.TaskRequest;
+import com.saumik.devtask_pro.dto.response.TaskResponse;
 import com.saumik.devtask_pro.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,22 +18,22 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks(){
+    public List<TaskResponse> getAllTasks(){
         return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id){
+    public TaskResponse getTaskById(@PathVariable Long id){
         return taskService.getTaskById(id);
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task){
+    public TaskResponse createTask(@RequestBody @Valid TaskRequest task){
         return taskService.createTask(task);
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable Long id,@RequestBody Task task){
+    public TaskResponse updateTask(@PathVariable Long id,@RequestBody @Valid TaskRequest task){
         return taskService.updateTask(id, task);
     }
 
