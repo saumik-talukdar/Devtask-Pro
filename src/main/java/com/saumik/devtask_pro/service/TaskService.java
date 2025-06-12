@@ -1,10 +1,13 @@
 package com.saumik.devtask_pro.service;
 
-import com.saumik.devtask_pro.dto.request.TaskRequest;
+import com.saumik.devtask_pro.dto.request.TaskCreateRequest;
+import com.saumik.devtask_pro.dto.request.TaskUpdateRequest;
 import com.saumik.devtask_pro.dto.response.TaskResponse;
 import com.saumik.devtask_pro.entity.Task;
 import com.saumik.devtask_pro.exception.ResourceNotFoundException;
+import com.saumik.devtask_pro.mapper.TaskMapper;
 import com.saumik.devtask_pro.repository.TaskRepository;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,59 +16,59 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    public TaskService(TaskRepository taskRepository){
+    public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
     public List<TaskResponse> getAllTasks(){
         return taskRepository.findAll().stream()
-                .map(this::mapToResponse)
+                .map(TaskMapper::toResponse)
                 .toList();
     }
 
     public TaskResponse getTaskById(Long id){
         Task task = getTaskEntityById(id);
-        return mapToResponse(task);
+        return TaskMapper.toResponse(task);
     }
 
-    public TaskResponse createTask(TaskRequest req){
-        Task task = Task.builder()
-                .title(req.getTitle())
-                .description(req.getDescription())
-                .status(req.getStatus())
-                .dueDate(req.getDueDate())
-                .priority(req.getPriority())
-                .build();
-        return mapToResponse(taskRepository.save(task));
+    public TaskResponse createTask(TaskCreateRequest req){
+
+        try {
+            Task task = Task.builder()
+                    .title(req.getTitle())
+                    .description(req.getDescription())
+                    .status(req.getStatus())
+                    .dueDate(req.getDueDate())
+                    .priority(req.getPriority())
+                    .build();
+            return TaskMapper.toResponse(taskRepository.save(task));
+        } catch (DataAccessException ex) {
+            throw new RuntimeException("Failed to save task to database", ex);
+        }
+
+
     }
 
-    public TaskResponse updateTask(Long id,TaskRequest updatedTask){
+    public TaskResponse updateTask(Long id, TaskUpdateRequest updatedTask){
         Task existingTask = getTaskEntityById(id);
-        existingTask.setDescription(updatedTask.getDescription());
-        existingTask.setTitle(updatedTask.getTitle());
-        existingTask.setStatus(updatedTask.getStatus());
-        existingTask.setPriority(updatedTask.getPriority());
-        existingTask.setDueDate(updatedTask.getDueDate());
-        return mapToResponse(taskRepository.save(existingTask));
+        if(updatedTask.getDescription()!=null)existingTask.setDescription(updatedTask.getDescription());
+        if(updatedTask.getTitle()!=null)existingTask.setTitle(updatedTask.getTitle());
+        if(updatedTask.getStatus()!=null)existingTask.setStatus(updatedTask.getStatus());
+        if(updatedTask.getPriority()!=null)existingTask.setPriority(updatedTask.getPriority());
+        if(updatedTask.getDueDate()!=null)existingTask.setDueDate(updatedTask.getDueDate());
+        return TaskMapper.toResponse(taskRepository.save(existingTask));
     }
 
-    public void deleteTask(Long id){
-        taskRepository.deleteById(id);
+    public void deleteTask(Long id) {
+        Task task = getTaskEntityById(id); // throws exception if not found
+        taskRepository.delete(task);
     }
 
-    public Task getTaskEntityById(Long id){
+
+    private Task getTaskEntityById(Long id){
         return taskRepository.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Task not found",id));
     }
 
-    private TaskResponse mapToResponse(Task task) {
-        return TaskResponse.builder()
-                .id(task.getId())
-                .title(task.getTitle())
-                .description(task.getDescription())
-                .status(task.getStatus())
-                .priority(task.getPriority())
-                .dueDate(task.getDueDate())
-                .build();
-    }
+
 }

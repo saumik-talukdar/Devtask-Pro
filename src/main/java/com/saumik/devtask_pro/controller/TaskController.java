@@ -1,6 +1,7 @@
 package com.saumik.devtask_pro.controller;
 
-import com.saumik.devtask_pro.dto.request.TaskRequest;
+import com.saumik.devtask_pro.dto.request.TaskCreateRequest;
+import com.saumik.devtask_pro.dto.request.TaskUpdateRequest;
 import com.saumik.devtask_pro.dto.response.TaskResponse;
 import com.saumik.devtask_pro.service.TaskService;
 import jakarta.validation.Valid;
@@ -28,12 +29,12 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskResponse createTask(@RequestBody @Valid TaskRequest task){
+    public TaskResponse createTask(@RequestBody @Valid TaskCreateRequest task){
         return taskService.createTask(task);
     }
 
     @PutMapping("/{id}")
-    public TaskResponse updateTask(@PathVariable Long id,@RequestBody @Valid TaskRequest task){
+    public TaskResponse updateTask(@PathVariable Long id,@RequestBody @Valid TaskUpdateRequest task){
         return taskService.updateTask(id, task);
     }
 

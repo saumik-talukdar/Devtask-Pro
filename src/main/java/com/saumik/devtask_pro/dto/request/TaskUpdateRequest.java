@@ -2,24 +2,27 @@ package com.saumik.devtask_pro.dto.request;
 
 import com.saumik.devtask_pro.enums.TaskPriority;
 import com.saumik.devtask_pro.enums.TaskStatus;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import com.saumik.devtask_pro.validation.EnumValue;
 
 @Data
-public class TaskRequest {
+@Builder
+public class TaskUpdateRequest {
 
-    @NotBlank(message = "Title is required")
     private String title;
-    @NotBlank(message = "Description is required")
     private String description;
-    @NotNull(message = "DueDate is required")
-    private LocalDate dueDate;
-    @NotNull(message = "Status is required")
-    private TaskStatus status;
-    @NotNull(message = "Priority is required")
+
     private TaskPriority priority;
 
+    private TaskStatus status;
+
+    private LocalDate dueDate;
+
 }
+
