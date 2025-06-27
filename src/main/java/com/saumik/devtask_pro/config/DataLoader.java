@@ -1,9 +1,9 @@
 package com.saumik.devtask_pro.config; // You can put it in 'config' or 'util' package
 
-import com.saumik.devtask_pro.entity.Task;
+import com.saumik.devtask_pro.task.entity.Task;
 import com.saumik.devtask_pro.enums.TaskPriority;
 import com.saumik.devtask_pro.enums.TaskStatus;
-import com.saumik.devtask_pro.repository.TaskRepository;
+import com.saumik.devtask_pro.task.repository.TaskRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

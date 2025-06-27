@@ -1,8 +1,8 @@
-package com.saumik.devtask_pro.mapper;
+package com.saumik.devtask_pro.task.mapper;
 
-import com.saumik.devtask_pro.dto.request.TaskCreateRequest;
-import com.saumik.devtask_pro.dto.response.TaskResponse;
-import com.saumik.devtask_pro.entity.Task;
+import com.saumik.devtask_pro.task.dto.request.TaskCreateRequest;
+import com.saumik.devtask_pro.task.dto.response.TaskResponse;
+import com.saumik.devtask_pro.task.entity.Task;
 import org.springframework.stereotype.Component;
 
 @Component

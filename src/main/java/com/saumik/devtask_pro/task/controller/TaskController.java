@@ -1,9 +1,9 @@
-package com.saumik.devtask_pro.controller;
+package com.saumik.devtask_pro.task.controller;
 
-import com.saumik.devtask_pro.dto.request.TaskCreateRequest;
-import com.saumik.devtask_pro.dto.request.TaskUpdateRequest;
-import com.saumik.devtask_pro.dto.response.TaskResponse;
-import com.saumik.devtask_pro.service.TaskService;
+import com.saumik.devtask_pro.task.dto.request.TaskCreateRequest;
+import com.saumik.devtask_pro.task.dto.request.TaskUpdateRequest;
+import com.saumik.devtask_pro.task.dto.response.TaskResponse;
+import com.saumik.devtask_pro.task.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

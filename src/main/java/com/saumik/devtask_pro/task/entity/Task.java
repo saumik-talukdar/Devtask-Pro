@@ -1,4 +1,4 @@
-package com.saumik.devtask_pro.entity;
+package com.saumik.devtask_pro.task.entity;
 
 import com.saumik.devtask_pro.enums.TaskPriority;
 import com.saumik.devtask_pro.enums.TaskStatus;

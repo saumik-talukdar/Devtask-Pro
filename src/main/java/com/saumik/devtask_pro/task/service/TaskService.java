@@ -1,12 +1,12 @@
-package com.saumik.devtask_pro.service;
+package com.saumik.devtask_pro.task.service;
 
-import com.saumik.devtask_pro.dto.request.TaskCreateRequest;
-import com.saumik.devtask_pro.dto.request.TaskUpdateRequest;
-import com.saumik.devtask_pro.dto.response.TaskResponse;
-import com.saumik.devtask_pro.entity.Task;
+import com.saumik.devtask_pro.task.dto.request.TaskCreateRequest;
+import com.saumik.devtask_pro.task.dto.request.TaskUpdateRequest;
+import com.saumik.devtask_pro.task.dto.response.TaskResponse;
+import com.saumik.devtask_pro.task.entity.Task;
 import com.saumik.devtask_pro.exception.ResourceNotFoundException;
-import com.saumik.devtask_pro.mapper.TaskMapper;
-import com.saumik.devtask_pro.repository.TaskRepository;
+import com.saumik.devtask_pro.task.mapper.TaskMapper;
+import com.saumik.devtask_pro.task.repository.TaskRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
