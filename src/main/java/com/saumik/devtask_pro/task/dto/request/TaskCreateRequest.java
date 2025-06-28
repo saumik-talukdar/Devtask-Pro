@@ -26,5 +26,6 @@ public class TaskCreateRequest {
     @Valid
     @NotNull(message = "Priority is required")
     private TaskPriority priority;
+    private String assignee;
 
 }

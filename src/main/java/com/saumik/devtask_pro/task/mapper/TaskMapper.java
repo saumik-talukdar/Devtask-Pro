@@ -1,81 +1,51 @@
 package com.saumik.devtask_pro.task.mapper;
 
 import com.saumik.devtask_pro.task.dto.request.TaskCreateRequest;
+import com.saumik.devtask_pro.task.dto.request.TaskUpdateRequest;
 import com.saumik.devtask_pro.task.dto.response.TaskResponse;
 import com.saumik.devtask_pro.task.entity.Task;
+import com.saumik.devtask_pro.user.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TaskMapper {
 
 
-    public static Task toEntity(TaskCreateRequest req){
+    public static Task toEntity(TaskCreateRequest req, User owner,User assignee){
         Task task = Task.builder()
                 .title(req.getTitle())
                 .description(req.getDescription())
                 .dueDate(req.getDueDate())
                 .priority(req.getPriority())
                 .status(req.getStatus())
+                .assignedTo(assignee)
+                .owner(owner)
                 .build();
         return task;
     }
 
-    public static Task toEntity(TaskResponse res){
-        Task task = Task.builder()
-                .id(res.getId())
-                .title(res.getTitle())
-                .description(res.getDescription())
-                .dueDate(res.getDueDate())
-                .priority(res.getPriority())
-                .status(res.getStatus())
-                .build();
+    public static Task updateTaskFromRequest(TaskUpdateRequest req, Task task,User assignee){
+        if (req.getTitle() != null) task.setTitle(req.getTitle());
+        if (req.getDescription() != null) task.setDescription(req.getDescription());
+        if (req.getStatus() != null) task.setStatus(req.getStatus());
+        if (req.getPriority() != null) task.setPriority(req.getPriority());
+        if (req.getDueDate() != null) task.setDueDate(req.getDueDate());
+        task.setAssignedTo(assignee);
         return task;
     }
 
-    public static TaskResponse toResponse(TaskCreateRequest req){
-        TaskResponse res = TaskResponse.builder()
-                .id(-1L) // dummy, cause req not contain id
-                .title(req.getTitle())
-                .description(req.getDescription())
-                .dueDate(req.getDueDate())
-                .status(req.getStatus())
-                .priority(req.getPriority())
-                .build();
-        return res;
-    }
 
-    public static TaskResponse toResponse(Task task){
-        TaskResponse res = TaskResponse.builder()
+    public static TaskResponse toResponse(Task task) {
+        return TaskResponse.builder()
                 .id(task.getId())
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .dueDate(task.getDueDate())
                 .status(task.getStatus())
                 .priority(task.getPriority())
+                .owner(task.getOwner() != null ? task.getOwner().getUsername() : null)
+                .assignee(task.getAssignedTo() != null ? task.getAssignedTo().getUsername() : null)
                 .build();
-        return res;
-    }
-
-    public static TaskCreateRequest toRequest(TaskResponse res){
-        TaskCreateRequest req = TaskCreateRequest.builder()
-                .title(res.getTitle())
-                .description(res.getDescription())
-                .dueDate(res.getDueDate())
-                .status(res.getStatus())
-                .priority(res.getPriority())
-                .build();
-        return req;
-    }
-
-    public static TaskCreateRequest toRequest(Task task){
-        TaskCreateRequest req = TaskCreateRequest.builder()
-                .title(task.getTitle())
-                .description(task.getDescription())
-                .dueDate(task.getDueDate())
-                .status(task.getStatus())
-                .priority(task.getPriority())
-                .build();
-        return req;
     }
 
 }

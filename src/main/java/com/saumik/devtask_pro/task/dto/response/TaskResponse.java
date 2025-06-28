@@ -24,4 +24,7 @@ public class TaskResponse {
     private TaskStatus status;
     @NotNull(message = "Priority is required")
     private TaskPriority priority;
+    private String owner;
+    private String assignee;
+
 }
