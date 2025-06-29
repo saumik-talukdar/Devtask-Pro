@@ -6,6 +6,7 @@ import com.saumik.devtask_pro.task.dto.request.TaskUpdateRequest;
 import com.saumik.devtask_pro.task.dto.response.TaskResponse;
 import com.saumik.devtask_pro.task.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,74 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
+
+    @Autowired
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
+    @PutMapping("/{id}/submit-review")
+    public TaskResponse submitTaskForReview(@PathVariable Long id) {
+        return taskService.submitTaskForReview(id);
+    }
+
+    @PutMapping("/{id}/review/accept")
+    public TaskResponse acceptSubmittedTask(@PathVariable Long id) {
+        return taskService.acceptSubmittedTask(id);
+    }
+
+    @PutMapping("/{id}/review/reject")
+    public TaskResponse rejectSubmittedTask(@PathVariable Long id) {
+        return taskService.rejectSubmittedTask(id);
+    }
+
+    @GetMapping("/rejected")
+    public List<TaskResponse> getRejectedTasks() {
+        return taskService.getRejectedTasks();
+    }
+
+
+
+
+    @GetMapping("/requested")
+    public List<TaskResponse> getRequestedTasks() {
+        return taskService.getRequestedTasks();
+    }
+
+    @PutMapping("/{id}/accept-requested")
+    public TaskResponse acceptRequestedTask(@PathVariable Long id) {
+        return taskService.acceptRequestedTask(id);
+    }
+
+    @PutMapping("/{id}/reject")
+    public TaskResponse rejectRequestedTask(@PathVariable Long id) {
+        return taskService.rejectRequestedTask(id);
+    }
+
+    @PutMapping("/{id}/make-private")
+    public TaskResponse makeTaskPrivate(@PathVariable Long id) {
+        return taskService.makeTaskPrivate(id);
+    }
+
+    @PutMapping("/{id}/make-public")
+    public TaskResponse makeTaskPublic(@PathVariable Long id) {
+        return taskService.makeTaskPublic(id);
+    }
+
+
+    @GetMapping("/public")
+    public List<TaskResponse> getPublicTasks() {
+        return taskService.getPublicTasks();
+    }
+
+    @PutMapping("/public/{id}/accept")
+    public TaskResponse acceptPublicTask(@PathVariable Long id) {
+        return taskService.acceptPublicTask(id);
+    }
+
     @GetMapping
-    public List<TaskResponse> getAllTasks(){
-        return taskService.getAllTasks();
+    public List<TaskResponse> getMyTasks(){
+        return taskService.getMyTasks();
     }
 
     @GetMapping("/assigned")

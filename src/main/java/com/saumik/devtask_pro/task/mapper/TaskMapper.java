@@ -17,7 +17,7 @@ public class TaskMapper {
                 .description(req.getDescription())
                 .dueDate(req.getDueDate())
                 .priority(req.getPriority())
-                .status(req.getStatus())
+
                 .assignedTo(assignee)
                 .owner(owner)
                 .build();
@@ -27,7 +27,7 @@ public class TaskMapper {
     public static Task updateTaskFromRequest(TaskUpdateRequest req, Task task,User assignee){
         if (req.getTitle() != null) task.setTitle(req.getTitle());
         if (req.getDescription() != null) task.setDescription(req.getDescription());
-        if (req.getStatus() != null) task.setStatus(req.getStatus());
+
         if (req.getPriority() != null) task.setPriority(req.getPriority());
         if (req.getDueDate() != null) task.setDueDate(req.getDueDate());
         task.setAssignedTo(assignee);

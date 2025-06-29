@@ -2,6 +2,7 @@ package com.saumik.devtask_pro.task.entity;
 
 import com.saumik.devtask_pro.enums.TaskPriority;
 import com.saumik.devtask_pro.enums.TaskStatus;
+import com.saumik.devtask_pro.enums.Visibility;
 import com.saumik.devtask_pro.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,10 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
+
+    @Enumerated(EnumType.STRING)
+    private Visibility visibility = Visibility.PRIVATE;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
